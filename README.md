@@ -44,7 +44,7 @@ The repository contains a `pyproject.toml` and a lock file. The author uses `uv`
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/job-market-scraper.git
+git clone git@github.com:MatheusFernandesDuarte/Job-Market-Scraper.git
 cd job-market-scraper
 ```
 
@@ -112,10 +112,10 @@ Refer to the CLI source for the exact, authoritative argument names and options.
 
 ## Architecture notes & rationale
 
-- **Separation of concerns:** query building, provider creation, HTTP client and mapping are explicit modules to facilitate testing and future provider additions (e.g., Bing, SerpAPI).
-- **Deterministic mapping:** from_google_cse_item normalizes the raw JSON into a JobPosting dataclass. This makes downstream enrichment and deduplication straightforward.
-- **Session reuse:** GoogleCseClient uses a persistent requests.Session with a default timeout to limit resource churn.
-- **Defensive environment handling:** the client throws a RuntimeError early if API credentials are missing, preventing accidental leaked calls.
+- [ ] **Separation of concerns:** query building, provider creation, HTTP client and mapping are explicit modules to facilitate testing and future provider additions (e.g., Bing, SerpAPI).
+- [ ] **Deterministic mapping:** from_google_cse_item normalizes the raw JSON into a JobPosting dataclass. This makes downstream enrichment and deduplication straightforward.
+- [ ] **Session reuse:** GoogleCseClient uses a persistent requests.Session with a default timeout to limit resource churn.
+- [ ] **Defensive environment handling:** the client throws a RuntimeError early if API credentials are missing, preventing accidental leaked calls.
 
 ## Notable implementation details (observed)
 
