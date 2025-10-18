@@ -1,0 +1,37 @@
+[project]
+name = "job-market-scraper"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "colorama>=0.4.6",
+    "pydantic>=2.12.2",
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+    "pytest-mock>=3.15.1",
+    "python-dotenv>=1.1.1",
+    "pytz>=2025.2",
+    "requests>=2.32.5",
+]
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+    "pytest-mock>=3.15.1",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff]
+select = ["E", "F", "W", "C90"]
+ignore = ["E501"]
+
+[tool.mypy]
+ignore_missing_imports = true
+strict = true
