@@ -3,6 +3,7 @@
 import requests
 
 from src.filters.job_filters import JobFilter
+from src.filters.query_expander import QueryExpander
 from src.filters.search_time_filter import build_time_filter
 from src.models.job_model import JobPosting
 from src.services.base import BaseProvider
@@ -33,6 +34,7 @@ class GoogleService(BaseProvider):
         """
         self.client: GoogleCseClient = client or GoogleCseClient()
         self.filter: JobFilter = JobFilter()
+        self.expander: QueryExpander = QueryExpander()
 
     def search(self, queries: list[str], max_results: int = 10) -> list[JobPosting]:
         """
@@ -50,6 +52,7 @@ class GoogleService(BaseProvider):
             list[JobPosting]: A list of up to `max_results` job postings,
             filtered and deduplicated.
         """
+        expanded_queries: list[str] = self.expander.expand(queries=queries)
         all_candidates: dict[str, JobPosting] = {}
 
         for window in self._SEARCH_WINDOWS:
@@ -57,7 +60,7 @@ class GoogleService(BaseProvider):
             window_label: str = f"{window} days" if window else "no time filter"
             print(f"🔎 Searching jobs ({window_label})...")
 
-            for query in queries:
+            for query in expanded_queries:
                 try:
                     raw_items: list[dict] = self.client.search(query=query, date_filter=date_filter)
 

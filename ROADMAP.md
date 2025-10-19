@@ -1,4 +1,3 @@
-
 # Job Market Scraper — Roadmap
 
 This document outlines a checklist of potential features and improvements to evolve the MVP into a more robust and feature-rich job intelligence tool.
@@ -13,7 +12,7 @@ This document outlines a checklist of potential features and improvements to evo
 * [ ] **Support for More Providers:** Add new service providers for other job boards (e.g., Indeed, LinkedIn directly).
 * [ ] **Pagination Support:** Implement logic to fetch multiple pages of results from a single provider query.
 * [ ] **Resilient API Calls:** Add retry logic with exponential backoff for API requests to handle transient network errors.
-* [ ] **Keyword Expansion:** Use NLP or synonym lists to expand user queries for more comprehensive results (e.g., "dev" -> "developer", "engineer").
+* [X] **Keyword Expansion:** Use NLP or synonym lists to expand user queries for more comprehensive results (e.g., "dev" -> "developer", "engineer").
 * [ ] **AI-Powered Ranking:** Develop a more sophisticated ranking model to surface the most relevant roles based on user profiles or preferences.
 
 ### Frontend & User Experience
@@ -31,7 +30,6 @@ This document outlines a checklist of potential features and improvements to evo
 * [ ] **Data Export:** Add CLI subcommands to export search results to common formats like CSV or JSON.
 * [ ] **Real-time Notifications:** Implement a notification system to send alerts for new, matching jobs via webhooks (e.g., Slack, Discord).
 * [ ] **Productivity Tool Integrations:** Build direct integrations to send job data to tools like Google Sheets or Notion.
-
 
 ### Author & contact
 
