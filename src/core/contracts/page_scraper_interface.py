@@ -1,4 +1,4 @@
-# /src/core/contracts/page_scraper_interface.py
+# src/core/contracts/page_scraper_interface.py
 
 from abc import ABC, abstractmethod
 

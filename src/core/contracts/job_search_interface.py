@@ -1,4 +1,4 @@
-# /src/core/contracts/job_search_interface.py
+# src/core/contracts/job_search_interface.py
 from abc import ABC, abstractmethod
 
 from src.models.job_model import JobPosting
