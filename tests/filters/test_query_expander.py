@@ -1,11 +1,35 @@
-# test_query_expander.py
+# tests/filters/test_query_expander.py
 
-from src.filters.query_expander import QueryExpander
+import pytest
 
-expander: QueryExpander = QueryExpander()
+from src.core.filters.query_expander import QueryExpander
 
-queries: list[str] = ['"brazil" + "developer"']
-expanded: list[str] = expander.expand(queries=queries)
-expected_result: list[str] = ["engineer", '"brazil" + "programmer"', '"brazil" + "developer"', "programmer", '"brazil" + "engineer"']
+test_cases = [
+    (['"python developer"'], {'"python developer"', '"python engineer"', '"python programmer"'}),
+    (['"brazil" + "python developer"'], {'"brazil" + "python developer"', '"brazil" + "python engineer"', '"brazil" + "python programmer"'}),
+    (['"devops role"'], {'"devops role"'}),
+    (
+        ['"backend"', '"data"'],
+        {'"backend"', '"back-end"', '"api developer"', '"django"', '"node.js"', '"data"', '"data analyst"', '"data scientist"', '"machine learning"'},
+    ),
+    (
+        ['"react"'],
+        {'"react"'},
+    ),
+]
 
-assert set(expanded) == set(expected_result)
+
+@pytest.mark.parametrize("input_queries, expected_expansion", test_cases)
+def test_query_expander(input_queries: list[str], expected_expansion: set[str]) -> None:
+    """
+    Tests that the QueryExpander correctly expands queries by substitution
+    and handles various cases.
+    """
+    # Arrange
+    expander = QueryExpander()
+
+    # Act
+    actual_expansion = expander.expand(queries=input_queries)
+
+    # Assert
+    assert set(actual_expansion) == expected_expansion
