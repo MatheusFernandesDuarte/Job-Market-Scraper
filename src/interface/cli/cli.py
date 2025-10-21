@@ -37,7 +37,7 @@ async def main(argv: list[str] | None = None) -> int:
     cli_arguments: list[str] = argv if argv is not None else sys.argv[1:]
     args: Namespace = cli_args.parse_args(argv=cli_arguments)
 
-    if args.locations == [""] and args.seniority == [""] and args.role == [""]:
+    if not (any(loc.strip() for loc in args.locations) or any(sen.strip() for sen in args.seniority) or any(role.strip() for role in args.role)):
         cli_ui.display_error(message="Please provide at least one search criterion.")
         return 1
 
@@ -53,7 +53,6 @@ async def main(argv: list[str] | None = None) -> int:
     try:
         async with PlaywrightScraper() as page_scraper:
             search_service: JobSearchInterface = GoogleService()
-
             use_case: JobSearchAndEnrichUseCase = JobSearchAndEnrichUseCase(
                 search_service=search_service,
                 page_scraper=page_scraper,
