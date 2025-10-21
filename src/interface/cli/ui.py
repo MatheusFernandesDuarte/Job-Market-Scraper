@@ -45,15 +45,20 @@ def display_results(results: list[JobPosting]) -> None:
         print(Styler.warning(text="No results found."))
         return
 
-    print()
-    print(Styler.title(text="Top job postings:"))
+    print(f"\n{Styler.title(text='Top job postings:')}")
     print("-" * 50)
 
     for i, job in enumerate(iterable=results, start=1):
         print(f"{Styler.success(text=f'{i}. {job.title}')}")
         print(f"   Source: {Styler.dim(text=job.source)}")
         print(f"   Link: {Styler.info(text=job.link)}")
-        print(f"   Snippet: {job.snippet.strip()}\n")
+
+        if job.full_description:
+            description_preview: str = job.full_description[:250] + "..."
+        else:
+            description_preview: str = "Description not available (scraping may have failed)."
+
+        print(f"   Description Preview: {description_preview}\n")
 
 
 def display_error(message: str) -> None:
