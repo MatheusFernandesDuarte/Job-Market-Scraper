@@ -4,13 +4,14 @@ from unittest.mock import ANY, AsyncMock, MagicMock
 
 import pytest
 
-import src.interface.cli.cli as cli
+from src.interface.cli import cli
 
 pytestmark = pytest.mark.asyncio
 
 
 @pytest.fixture
 def mock_use_case(mocker: MagicMock) -> MagicMock:
+    """Mocks the JobSearchAndEnrichUseCase using a stable, absolute path."""
     mock = mocker.patch("src.interface.cli.cli.JobSearchAndEnrichUseCase")
     mock.return_value.execute = AsyncMock(return_value=["job1"])
     return mock
@@ -18,6 +19,7 @@ def mock_use_case(mocker: MagicMock) -> MagicMock:
 
 @pytest.fixture
 def mock_ui(mocker: MagicMock) -> MagicMock:
+    """Mocks the UI module and configures return values for its functions."""
     mock = mocker.patch("src.interface.cli.cli.cli_ui")
     mock.display_results.return_value = "---Fake Results---"
     mock.display_error.return_value = "---Fake Error---"
@@ -26,18 +28,34 @@ def mock_ui(mocker: MagicMock) -> MagicMock:
 
 
 @pytest.fixture
-def mock_print(mocker: MagicMock) -> MagicMock:
-    return mocker.patch("builtins.print")
+def mock_scraper(mocker: MagicMock) -> MagicMock:
+    """Mocks the PlaywrightScraper to prevent a real browser launch."""
+    return mocker.patch("src.interface.cli.cli.PlaywrightScraper")
 
 
-async def test_main_success_flow(mock_use_case: MagicMock, mock_ui: MagicMock, mock_print: MagicMock) -> None:
+@pytest.fixture
+def mock_logger_info(mocker: MagicMock) -> MagicMock:
+    """Mocks the 'info' method of the logger in the cli module."""
+    return mocker.patch("src.interface.cli.cli.logger.info")
+
+
+async def test_main_success_flow(
+    mock_use_case: MagicMock,
+    mock_ui: MagicMock,
+    mock_scraper: MagicMock,
+    mock_logger_info: MagicMock,
+) -> None:
+    """Tests the successful execution path of the CLI."""
     argv = ["--role", "Developer", "--max", "5"]
 
     exit_code = await cli.main(argv=argv)
 
+    mock_use_case.assert_called_once()
     mock_use_case.return_value.execute.assert_awaited_once_with(queries=['"Developer"'], max_results=5)
+
     mock_ui.display_results.assert_called_once_with(results=["job1"])
-    mock_print.assert_any_call("---Fake Results---")
+    mock_logger_info.assert_any_call("---Fake Results---")
+
     assert exit_code == 0
 
 
