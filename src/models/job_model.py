@@ -13,3 +13,4 @@ class JobPosting:
     source: str
     date: str | None = None
     score: int = field(default=0, repr=False)
+    full_description: str | None = None

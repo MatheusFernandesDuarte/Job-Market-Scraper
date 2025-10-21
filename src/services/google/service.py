@@ -1,40 +1,34 @@
 # src/services/google/service.py
 
+import logging
+
 import requests
 
-from src.filters.job_filters import JobFilter
-from src.filters.query_expander import QueryExpander
-from src.filters.search_time_filter import build_time_filter
+from src.core.contracts.job_search_interface import JobSearchInterface
+from src.core.filters.initial_job_filter import InitialJobFilter
+from src.core.filters.query_expander import QueryExpander
+from src.core.filters.search_time_filter import build_time_filter
 from src.models.job_model import JobPosting
-from src.services.base import BaseProvider
 from src.services.google.client import GoogleCseClient
 from src.services.google.mapper import from_google_cse_item
 
+logger = logging.getLogger(__name__)
 
-class GoogleService(BaseProvider):
+
+class GoogleService(JobSearchInterface):
     """
     Service responsible for fetching, processing, and filtering job postings
     from Google Custom Search Engine (CSE).
-
-    This service:
-        - Builds and executes queries using GoogleCseClient
-        - Maps raw API responses into JobPosting domain models
-        - Filters, deduplicates, and adjusts search range adaptively
     """
 
     _SEARCH_WINDOWS: list[int | None] = [7, 14, 30, 90, 180, None]
 
-    def __init__(self, client: GoogleCseClient | None = None) -> None:
+    def __init__(self, client: GoogleCseClient | None = None, expander: QueryExpander | None = None) -> None:
         """
         Initialize the GoogleService.
-
-        Args:
-            client (GoogleCseClient | None): Custom CSE client instance.
-                If None, a default one is created.
         """
         self.client: GoogleCseClient = client or GoogleCseClient()
-        self.filter: JobFilter = JobFilter()
-        self.expander: QueryExpander = QueryExpander()
+        self.expander: QueryExpander = expander or QueryExpander()
 
     def search(self, queries: list[str], max_results: int = 10) -> list[JobPosting]:
         """
@@ -56,25 +50,26 @@ class GoogleService(BaseProvider):
         all_candidates: dict[str, JobPosting] = {}
 
         for window in self._SEARCH_WINDOWS:
+            if len(all_candidates) >= max_results:
+                logger.info(f"Sufficient candidates found ({len(all_candidates)}). Stopping search.")
+                break
+
             date_filter: str = build_time_filter(days=window)
-            window_label: str = f"{window} days" if window else "no time filter"
-            print(f"🔎 Searching jobs ({window_label})...")
+            window_label: str = f"from last {window} days" if window else "no time filter"
+            logger.info(f"🔎 Searching jobs ({window_label})...")
 
             for query in expanded_queries:
                 try:
                     raw_items: list[dict] = self.client.search(query=query, date_filter=date_filter)
 
                     for item in raw_items:
-                        job_posting: JobPosting = from_google_cse_item(item=item)
-                        if job_posting.link and job_posting.link not in all_candidates:
-                            all_candidates[job_posting.link] = job_posting
+                        job: JobPosting = from_google_cse_item(item=item)
+                        if job.link and job.link not in all_candidates and InitialJobFilter.should_keep(job=job):
+                            all_candidates[job.link] = job
 
-                except requests.RequestException:
+                except requests.RequestException as e:
+                    logger.warning(f"Failed to fetch query '{query}': {e}")
                     continue
 
-            filtered_results: list[JobPosting] = self.filter.process(results=list(all_candidates.values()))
-
-            if len(filtered_results) >= max_results:
-                break
-
-        return filtered_results[:max_results]
+        final_results: list[JobPosting] = list(all_candidates.values())
+        return final_results[:max_results]

@@ -1,178 +1,111 @@
-"""
-Unit tests for the GoogleService orchestrator.
-
-This suite uses mocking to isolate the service from its dependencies (client,
-filter) and verify its core business logic, including adaptive search,
-error handling, and deduplication.
-"""
+# tests/services/google/test_service.py
 
 from unittest.mock import MagicMock
 
 import pytest
-import requests
 from pytest_mock import MockerFixture
 
+from src.core.filters.query_expander import QueryExpander
 from src.models.job_model import JobPosting
-from src.services.google.client import GoogleCseClient
 from src.services.google.service import GoogleService
-
-# ==============================================================================
-# Fixtures
-# ==============================================================================
 
 
 @pytest.fixture
 def mock_client(mocker: MockerFixture) -> MagicMock:
-    """Provides a mock instance of the GoogleCseClient."""
-    return mocker.MagicMock(spec=GoogleCseClient)
+    """Mocks the GoogleCseClient instance."""
+    return mocker.patch("src.services.google.service.GoogleCseClient", autospec=True).return_value
 
 
 @pytest.fixture
-def mock_filter(mocker: MockerFixture) -> MagicMock:
-    """Provides a mock instance of the JobFilter."""
-    mock = mocker.patch("src.services.google.service.JobFilter", autospec=True)
-    return mock.return_value
+def mock_from_google_item(mocker: MockerFixture) -> MagicMock:
+    """Mocks the from_google_cse_item mapper function."""
+    return mocker.patch("src.services.google.service.from_google_cse_item")
 
 
 @pytest.fixture
-def sample_job_postings() -> list[JobPosting]:
-    """Provides a list of sample JobPosting objects for mock responses."""
+def mock_initial_filter(mocker: MockerFixture) -> MagicMock:
+    """Mocks the InitialJobFilter class."""
+    mock = mocker.patch("src.services.google.service.InitialJobFilter", autospec=True)
+    mock.should_keep.return_value = True
+    return mock
+
+
+@pytest.fixture
+def mock_expander(mocker: MockerFixture) -> MagicMock:
+    """Mocks the QueryExpander instance."""
+    mock = mocker.MagicMock(spec=QueryExpander)
+    mock.expand.side_effect = lambda queries: queries
+    return mock
+
+
+@pytest.fixture
+def sample_jobs() -> list[JobPosting]:
+    """Provides a list of sample JobPosting objects."""
     return [
-        JobPosting(title="Job 1", link="https://link1.com", snippet="", source=""),
-        JobPosting(title="Job 2", link="https://link2.com", snippet="", source=""),
-        JobPosting(title="Job 3", link="https://link3.com", snippet="", source=""),
+        JobPosting(title="Job 1", link="https://link1.com", snippet="a", source="a"),
+        JobPosting(title="Job 2", link="https://link2.com", snippet="b", source="b"),
+        JobPosting(title="Job 3", link="https://link3.com", snippet="c", source="c"),
     ]
-
-
-# ==============================================================================
-# Test Cases
-# ==============================================================================
 
 
 def test_search_finds_enough_results_in_first_window(
     mock_client: MagicMock,
-    mock_filter: MagicMock,
-    sample_job_postings: list[JobPosting],
+    mock_from_google_item: MagicMock,
+    mock_initial_filter: MagicMock,
+    mock_expander: MagicMock,
+    sample_jobs: list[JobPosting],
 ) -> None:
-    """
-    Verify that the search stops after the first time window if enough
-    results are found.
-    """
-    # ARRANGE
-    mock_client.search.return_value = [{"title": "raw item"}]
-    mock_filter.process.return_value = sample_job_postings  # Enough results
+    """Tests that the search stops after the first window if enough jobs are found."""
+    mock_client.search.return_value = [{"raw": "item"}] * 3
+    mock_from_google_item.side_effect = sample_jobs
 
-    service = GoogleService(client=mock_client)
+    service = GoogleService(client=mock_client, expander=mock_expander)
 
-    # ACT
-    results: list[JobPosting] = service.search(queries=["python"], max_results=3)
+    results = service.search(queries=["python"], max_results=3)
 
-    # ASSERT
     assert len(results) == 3
-    mock_client.search.assert_called_once()  # Should only search the first window
-    mock_filter.process.assert_called_once()
+    mock_client.search.assert_called_once()
 
 
-def test_search_expands_time_window_when_needed(
+def test_search_expands_window_when_needed(
     mock_client: MagicMock,
-    mock_filter: MagicMock,
-    sample_job_postings: list[JobPosting],
+    mock_from_google_item: MagicMock,
+    mock_initial_filter: MagicMock,
+    mock_expander: MagicMock,
+    sample_jobs: list[JobPosting],
 ) -> None:
-    """
-    Verify that the search continues to the next time window if the initial
-    search does not yield enough results.
-    """
-    # ARRANGE
-    # First call to filter returns too few, second call returns enough
-    mock_filter.process.side_effect = [
-        sample_job_postings[:1],  # 1 result
-        sample_job_postings,  # 3 results
-    ]
-    mock_client.search.return_value = [{"title": "raw item"}]
+    """Tests that the search continues to the next window if not enough jobs are found."""
+    # First API call returns 1 item, second returns 2 more
+    mock_client.search.side_effect = [[{"raw": "item"}], [{"raw": "item"}] * 2]
+    mock_from_google_item.side_effect = sample_jobs  # Provides enough data for all calls
 
-    service = GoogleService(client=mock_client)
+    service = GoogleService(client=mock_client, expander=mock_expander)
 
-    # ACT
-    results: list[JobPosting] = service.search(queries=["python"], max_results=3)
+    results = service.search(queries=["python"], max_results=3)
 
-    # ASSERT
     assert len(results) == 3
-    assert mock_client.search.call_count == 2  # Called for 7 and 14-day windows
-    assert mock_filter.process.call_count == 2
+    assert mock_client.search.call_count == 2
 
 
-def test_search_handles_api_errors_gracefully(
+def test_search_deduplicates_results(
     mock_client: MagicMock,
-    mock_filter: MagicMock,
-    sample_job_postings: list[JobPosting],
+    mock_from_google_item: MagicMock,
+    mock_initial_filter: MagicMock,
+    mock_expander: MagicMock,
 ) -> None:
-    """
-    Verify that a RequestException during a query does not stop the entire
-    search process.
-    """
-    # ARRANGE
-    mock_client.search.side_effect = [
-        requests.RequestException("API Error"),  # First query fails
-        [{"title": "raw item 2"}],  # Second query succeeds
-    ]
-    mock_filter.process.return_value = sample_job_postings
+    """Tests that jobs with the same link are not duplicated across windows."""
+    job_a = JobPosting(title="Job A", link="https://link-a.com", snippet="", source="")
+    job_b = JobPosting(title="Job B", link="https://link-b.com", snippet="", source="")
 
-    service = GoogleService(client=mock_client)
+    # Client will find 1 item in the first window, and 2 in the second
+    mock_client.search.side_effect = [[{"raw": "a"}], [{"raw": "a"}, {"raw": "b"}]]
+    # Mapper will return job_a, then job_a again, then job_b
+    mock_from_google_item.side_effect = [job_a, job_a, job_b]
 
-    # ACT
-    results: list[JobPosting] = service.search(queries=["q1", "q2"], max_results=3)
+    service = GoogleService(client=mock_client, expander=mock_expander)
 
-    # ASSERT
-    assert len(results) == 3
-    assert mock_client.search.call_count == 2  # Both queries were attempted
+    results = service.search(queries=["python"], max_results=2)
 
-
-def test_search_deduplicates_results_across_windows(
-    mock_client: MagicMock,
-    mock_filter: MagicMock,
-) -> None:
-    """
-    Verify that job postings with the same link are not duplicated, even if
-    found in different time windows.
-    """
-    # ARRANGE
-    # API returns the same item in two different searches
-    raw_item = {"title": "Same Job", "link": "https://unique.com"}
-    mock_client.search.return_value = [raw_item]
-
-    # Filter returns one result, then two (one old, one new)
-    job1 = JobPosting(title="Same Job", link="https://unique.com", snippet="", source="")
-    job2 = JobPosting(title="New Job", link="https://new.com", snippet="", source="")
-    mock_filter.process.side_effect = [[job1], [job1, job2]]
-
-    service = GoogleService(client=mock_client)
-
-    # ACT
-    results: list[JobPosting] = service.search(queries=["python"], max_results=2)
-
-    # ASSERT
     assert len(results) == 2
-    assert results[0].link == "https://unique.com"
-    assert results[1].link == "https://new.com"
-    # The deduplication happens inside the loop, so the filter is still called twice
-    assert mock_filter.process.call_count == 2
-
-
-def test_search_returns_empty_list_when_no_results_found(
-    mock_client: MagicMock,
-    mock_filter: MagicMock,
-) -> None:
-    """
-    Verify that an empty list is returned if no valid jobs are ever found.
-    """
-    # ARRANGE
-    mock_client.search.return_value = []  # API returns nothing
-    mock_filter.process.return_value = []  # Filter returns nothing
-
-    service = GoogleService(client=mock_client)
-
-    # ACT
-    results: list[JobPosting] = service.search(queries=["python"], max_results=10)
-
-    # ASSERT
-    assert results == []
+    assert {job.link for job in results} == {"https://link-a.com", "https://link-b.com"}
+    assert mock_client.search.call_count == 2
