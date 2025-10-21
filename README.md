@@ -80,15 +80,17 @@ git clone git@github.com:MatheusFernandesDuarte/Job-Market-Scraper.git
 cd job-market-scraper
 ```
 
-3. **Create and activate a virtual environment:**
+3. **Initialize the project with ``uv``:**
+```bash
+uv init
+```
 
-```python
-source .venv/bin/activate   # Linux / macOS
-.venv\Scripts\activate      # Windows (PowerShell)
+4. **Create and activate a virtual environment:**
+```bash
+uv venv
 ```
 
 4. **Install dependencies:**
-
 ```python
 uv sync
 ```
