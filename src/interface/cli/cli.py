@@ -1,6 +1,7 @@
 # src/interface/cli/cli.py
 
 import itertools
+import logging
 import sys
 from argparse import Namespace
 
@@ -13,6 +14,8 @@ from src.interface.cli import ui as cli_ui
 from src.models.job_model import JobPosting
 from src.services.google.service import GoogleService
 from src.services.scraping.playwright_scraper import PlaywrightScraper
+
+logger = logging.getLogger(__name__)
 
 
 async def main(argv: list[str] | None = None) -> int:
@@ -45,7 +48,7 @@ async def main(argv: list[str] | None = None) -> int:
         cli_ui.display_error(message="Could not build any valid queries from the provided terms.")
         return 1
 
-    cli_ui.display_search_header(queries=queries)
+    logger.info(cli_ui.display_search_header(queries=queries))
 
     try:
         async with PlaywrightScraper() as page_scraper:
@@ -59,8 +62,8 @@ async def main(argv: list[str] | None = None) -> int:
             results: list[JobPosting] = await use_case.execute(queries=queries, max_results=args.max)
 
     except Exception as exc:
-        cli_ui.display_error(message=f"An error occurred during the search: {exc}")
+        logger.info(cli_ui.display_error(message=f"An error occurred during the search: {exc}"))
         return 2
 
-    cli_ui.display_results(results=results)
+    logger.info(cli_ui.display_results(results=results))
     return 0

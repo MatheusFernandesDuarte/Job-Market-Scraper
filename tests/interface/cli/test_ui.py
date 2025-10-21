@@ -40,9 +40,9 @@ def mock_styler(mocker: MagicMock) -> None:
     mocker.patch("src.interface.cli.ui.Styler", MockStyler)
 
 
-def test_display_results_with_jobs(capsys) -> None:
+def test_display_results_with_jobs() -> None:
     """
-    Tests if results are printed correctly.
+    Tests if results are formatted correctly.
     """
     # Arrange
     jobs = [
@@ -56,34 +56,31 @@ def test_display_results_with_jobs(capsys) -> None:
     ]
 
     # Act
-    ui.display_results(results=jobs)
-    captured = capsys.readouterr()
+    result_str = ui.display_results(results=jobs)
 
     # Assert
-    assert "Software Engineer" in captured.out
-    assert "http://job.com/1" in captured.out
-    assert "This is a full description." in captured.out
+    assert "Software Engineer" in result_str
+    assert "http://job.com/1" in result_str
+    assert "This is a full description." in result_str
 
 
-def test_display_results_empty(capsys) -> None:
+def test_display_results_empty() -> None:
     """
     Tests the output when no results are found.
     """
-    # Arrange
-    ui.display_results(results=[])
-    captured = capsys.readouterr()
+    # Act
+    result_str = ui.display_results(results=[])
 
     # Assert
-    assert "No results found" in captured.out
+    assert "No results found" in result_str
 
 
-def test_display_error(capsys) -> None:
+def test_display_error() -> None:
     """
-    Tests if error messages are displayed correctly.
+    Tests if error messages are formatted correctly.
     """
-    # Arrange
-    ui.display_error(message="Test error")
-    captured = capsys.readouterr()
+    # Act
+    error_str = ui.display_error(message="Test error")
 
     # Assert
-    assert "[ERROR][error] Test error[/ERROR]" in captured.out
+    assert "[ERROR][error] Test error[/ERROR]" in error_str

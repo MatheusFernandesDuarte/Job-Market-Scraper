@@ -12,63 +12,62 @@ from src.interface.cli.styler import Styler
 from src.models.job_model import JobPosting
 
 
-def display_search_header(queries: list[str]) -> None:
+def display_search_header(queries: list[str]) -> str:
     """
-    Display a header listing the search queries that will be executed.
+    Returns a formatted string listing the search queries to be executed,
+    for display in a frontend or outras interfaces textuais.
 
     Args:
-        queries (list[str]): A list of the formatted query strings to be
-            printed to the console.
+        queries (list[str]): List of formatted query strings.
 
     Returns:
-        None
+        str: Formatted text with title and queries listed.
     """
-    print(Styler.title(text="Running searches for:"))
-    for query in queries:
-        print(f"  - {Styler.info(text=query)}")
+    header: str = Styler.title(text="Running searches for:")
+    lines: list[str] = [header] + [f"  - {Styler.info(text=query)}" for query in queries]
+    return "\n".join(lines)
 
 
-def display_results(results: list[JobPosting]) -> None:
+def display_results(results: list[JobPosting]) -> str:
     """
-    Format and display the final list of job posting results.
+    Format and return the final list of job posting results as a string.
 
-    If the list is empty, a "No results found" message is shown.
+    If the list is empty, returns a "No results found" message.
 
     Args:
-        results (list[dict]): A list of dictionaries, where each dictionary
-            represents a unique, filtered job posting.
+        results (list[JobPosting]): A list of JobPosting objects to format.
 
     Returns:
-        None
+        str: A formatted string representing the job postings.
     """
     if not results:
-        print(Styler.warning(text="No results found."))
-        return
+        return Styler.warning(text="No results found.")
 
-    print(f"\n{Styler.title(text='Top job postings:')}")
-    print("-" * 50)
+    lines: list[str] = [f"\n{Styler.title(text='Top job postings:')}", "-" * 50]
 
-    for i, job in enumerate(iterable=results, start=1):
-        print(f"{Styler.success(text=f'{i}. {job.title}')}")
-        print(f"   Source: {Styler.dim(text=job.source)}")
-        print(f"   Link: {Styler.info(text=job.link)}")
+    for i, job in enumerate(results, start=1):
+        lines.append(f"{Styler.success(text=f'{i}. {job.title}')}")
+        lines.append(f"   Source: {Styler.dim(text=job.source)}")
+        lines.append(f"   Link: {Styler.info(text=job.link)}")
 
         if job.full_description:
             description_preview: str = job.full_description[:250] + "..."
         else:
             description_preview: str = "Description not available (scraping may have failed)."
 
-        print(f"   Description Preview: {description_preview}\n")
+        lines.append(f"   Description Preview: {description_preview}\n")
+
+    return "\n".join(lines)
 
 
-def display_error(message: str) -> None:
+def display_error(message: str) -> str:
     """
-    Print a standardized error message to the console.
+    Return a standardized error message string formatted for display.
 
     Args:
-        message (str): The error message to be displayed.
+        message (str): The error message to format.
 
     Returns:
-        None
+        str: The formatted error message.
     """
-    print(Styler.error(text=f"[error] {message}"))
+    return Styler.error(text=f"[error] {message}")
