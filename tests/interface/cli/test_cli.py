@@ -4,14 +4,14 @@ from unittest.mock import ANY, AsyncMock, MagicMock
 
 import pytest
 
-from src.interface.cli import cli
+import src.interface.cli.cli as cli
 
 pytestmark = pytest.mark.asyncio
 
 
 @pytest.fixture
 def mock_use_case(mocker: MagicMock) -> MagicMock:
-    mock = mocker.patch("src.interface.cli.cli.JobSearchAndEnrichUseCase")
+    mock = mocker.patch(f"{cli.__name__}.JobSearchAndEnrichUseCase")
     mock.return_value.execute = AsyncMock(return_value=["job1"])
     return mock
 
