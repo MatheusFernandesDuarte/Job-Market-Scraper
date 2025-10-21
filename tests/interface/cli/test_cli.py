@@ -11,24 +11,33 @@ pytestmark = pytest.mark.asyncio
 
 @pytest.fixture
 def mock_use_case(mocker: MagicMock) -> MagicMock:
-    mock = mocker.patch(f"{cli.__name__}.JobSearchAndEnrichUseCase")
+    mock = mocker.patch("src.interface.cli.cli.JobSearchAndEnrichUseCase")
     mock.return_value.execute = AsyncMock(return_value=["job1"])
     return mock
 
 
 @pytest.fixture
 def mock_ui(mocker: MagicMock) -> MagicMock:
-    return mocker.patch("src.interface.cli.cli.cli_ui")
+    mock = mocker.patch("src.interface.cli.cli.cli_ui")
+    mock.display_results.return_value = "---Fake Results---"
+    mock.display_error.return_value = "---Fake Error---"
+    mock.display_search_header.return_value = "---Fake Header---"
+    return mock
 
 
-async def test_main_success_flow(mock_use_case: MagicMock, mock_ui: MagicMock) -> None:
+@pytest.fixture
+def mock_print(mocker: MagicMock) -> MagicMock:
+    return mocker.patch("builtins.print")
+
+
+async def test_main_success_flow(mock_use_case: MagicMock, mock_ui: MagicMock, mock_print: MagicMock) -> None:
     argv = ["--role", "Developer", "--max", "5"]
 
     exit_code = await cli.main(argv=argv)
 
-    mock_use_case.assert_called_once()
     mock_use_case.return_value.execute.assert_awaited_once_with(queries=['"Developer"'], max_results=5)
     mock_ui.display_results.assert_called_once_with(results=["job1"])
+    mock_print.assert_any_call("---Fake Results---")
     assert exit_code == 0
 
 
