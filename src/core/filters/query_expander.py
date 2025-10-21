@@ -1,4 +1,4 @@
-# src/filters/query_expander.py
+# src/core/filters/query_expander.py
 
 import re
 from typing import Iterable
@@ -21,7 +21,7 @@ class QueryExpander:
 
     def expand(self, queries: Iterable[str]) -> list[str]:
         """
-        Expand each query with its synonyms.
+        Expands each query by substituting keywords with their synonyms.
 
         Args:
             queries (Iterable[str]): Base queries.
@@ -34,12 +34,12 @@ class QueryExpander:
         for q in queries:
             q_lower: str = q.lower().strip()
             expanded.add(q_lower)
+            words_in_query: set[str] = set(re.findall(pattern=r"\b\w+\b", string=q_lower))
 
             for keyword, synonyms in self._SYNONYMS.items():
-                pattern: str = rf'(?<!\w)"?{re.escape(pattern=keyword)}"?(?!\w)'
-                if re.search(pattern=pattern, string=q_lower):
+                if keyword in words_in_query:
                     for s in synonyms:
-                        expanded.add(q_lower.replace(keyword, s))
-                    expanded.update(synonyms)
+                        new_query: str = q_lower.replace(keyword, s)
+                        expanded.add(new_query)
 
         return list(expanded)
