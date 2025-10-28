@@ -17,7 +17,7 @@ To evolve the **Job Market Scraper** from a command-line tool into a personalize
   * **Tech Stack Extraction:** Create a comprehensive dictionary of technical keywords (languages, frameworks, cloud services, databases). The engine will scan the job text and tag the posting with all matching keywords.
   * **Experience Level Extraction:** Use regular expressions (Regex) to find patterns related to years of experience (e.g., "5+ years", "at least 3 years").
   * **Salary Data Extraction:** Implement Regex patterns to identify and parse salary information (e.g., "$120k - $140k/year", "€70,000"). Normalize this data into a common format (e.g., annual USD).
-* **[ ] 3. Build the Core API:**
+* **[X] 3. Build the Core API:**
   * Develop a RESTful API using **FastAPI** to serve the processed job data.
   * Create endpoints like `/jobs` to list all available positions and `/jobs/{id}` to retrieve details for a single job.
 
@@ -27,11 +27,11 @@ To evolve the **Job Market Scraper** from a command-line tool into a personalize
 
 **Goal:** To build a user-facing web interface that allows developers to define their profile and receive a ranked list of job opportunities tailored to them.
 
-* **[ ] 1. Create the User Profile Interface:**
+* **[X] 1. Create the User Profile Interface:**
   * Build a simple web form where users can input their professional profile.
   * **Required Fields:**
-    * **Tech Stack:** A multi-select or tag-based input for skills (e.g., Python, React, AWS, Docker).
-    * **Years of Experience:** A number input.
+    * **Tech Stack:** A simple text input where the user can type their skills, separated by commas (e.g., Python, React, AWS, Docker).
+    * **Location:** A simple text input where the user can type the location they want to work.
     * **Seniority Level:** A dropdown (e.g., Junior, Mid-level, Senior, Staff).
 * **[ ] 2. Design the Matching Algorithm:**
   * Develop a multi-factor scoring engine to quantify job-to-user profile fit based on structured attributes.
@@ -45,7 +45,7 @@ To evolve the **Job Market Scraper** from a command-line tool into a personalize
     * Support future integration of additional signals such as location preference, salary expectations, and soft skills.
     * Ensure efficient computation at scale by implementing indexes or caching as needed.
   * Output the scores alongside job metadata for downstream presentation in the ranked results dashboard.
-* **[ ] 3. Develop the Ranked Results Dashboard:**
+* **[X] 3. Develop the Ranked Results Dashboard:**
   * After the user provides their profile and initiates a search, display the results in a clean, sortable table.
   * The table will be ranked by **Match Score** by default and include the following columns:
     * **Match Score:** e.g., "95%".
