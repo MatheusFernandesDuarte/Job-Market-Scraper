@@ -1,0 +1,48 @@
+<!--?xml version="1.0" encoding="utf-8"?-->
+<!-- Favicon / app icon SVG for "job_market_scraper"
+     Compact, high-contrast magnifier + globe symbol, optimized for small sizes.
+     Usage: save as favicon.svg and reference in React public/index.html or convert to .ico/png as needed.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Job Market Scraper icon">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0ea5a4"></stop>
+      <stop offset="1" stop-color="#2563eb"></stop>
+    </linearGradient>
+    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.18"></feDropShadow>
+    </filter>
+  </defs>
+
+  <!-- Rounded square background -->
+  <rect x="2" y="2" width="60" height="60" rx="12" ry="12" fill="url(#bgGrad)" filter="url(#softShadow)"></rect>
+
+  <!-- Magnifier outer ring -->
+  <g transform="translate(7,7)">
+    <!-- lens -->
+    <circle cx="22" cy="18" r="12" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-width="2.4"></circle>
+    <!-- inner globe (simple lat/long) -->
+    <g transform="translate(22,18)" clip-path="none">
+      <!-- horizontal (latitude) arcs -->
+      <path d="M-11 0 C -7 6, 7 6, 11 0" stroke="#ffffff" stroke-width="1" fill="none" stroke-opacity="0.9"></path>
+      <path d="M-11 -6 C -6 -2, 6 -2, 11 -6" stroke="#ffffff" stroke-width="0.9" fill="none" stroke-opacity="0.6"></path>
+      <path d="M-11 6 C -6 2, 6 2, 11 6" stroke="#ffffff" stroke-width="0.9" fill="none" stroke-opacity="0.6"></path>
+      <!-- vertical (longitude) lines -->
+      <path d="M-4 -12 C -4 0, -4 0, -4 12" stroke="#ffffff" stroke-width="0.9" fill="none" stroke-opacity="0.6"></path>
+      <path d="M0 -12 C 0 0, 0 0, 0 12" stroke="#ffffff" stroke-width="0.9" fill="none" stroke-opacity="0.9"></path>
+      <path d="M4 -12 C 4 0, 4 0, 4 12" stroke="#ffffff" stroke-width="0.9" fill="none" stroke-opacity="0.6"></path>
+    </g>
+
+    <!-- magnifier handle -->
+    <rect x="30.5" y="26.5" width="15" height="4.6" rx="2.3" transform="rotate(35 30.5 26.5)" fill="#ffffff" fill-opacity="0.92"></rect>
+
+    <!-- small pin / job indicator inside lens (contrasting) -->
+    <g transform="translate(22,18)">
+      <circle cx="5" cy="-1" r="2.3" fill="#fbbf24" stroke="#b45309" stroke-width="0.6"></circle>
+      <path d="M5 2 L5 5" stroke="#b45309" stroke-width="0.8" stroke-linecap="round"></path>
+    </g>
+
+    <!-- subtle code brackets to hint "scraper / code" (very small, near bottom-left of lens) -->
+    <g transform="translate(8,27) scale(0.9)">
+      <path d="M0 0 L-4 -4 L0 -8" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"></path>
+      </g></g></svg>

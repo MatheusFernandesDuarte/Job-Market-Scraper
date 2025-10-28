@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48">
+  <!-- Faixa superior vermelha -->
+  <rect width="64" height="12" y="0" fill="#aa151b"></rect>
+  <!-- Faixa amarela central -->
+  <rect width="64" height="24" y="12" fill="#f1bf00"></rect>
+  <!-- Faixa inferior vermelha -->
+  <rect width="64" height="12" y="36" fill="#aa151b"></rect>
+  <!-- Escudo simplificado -->
+  <circle cx="16" cy="24" r="4" fill="#aa151b"></circle>
+</svg>

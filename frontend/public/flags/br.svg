@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48">
+  <!-- Fundo verde -->
+  <rect width="64" height="48" fill="#009b3a"></rect>
+  <!-- Losango amarelo -->
+  <polygon points="32,6 58,24 32,42 6,24" fill="#ffdf00"></polygon>
+  <!-- Círculo azul -->
+  <circle cx="32" cy="24" r="10" fill="#002776"></circle>
+</svg>
