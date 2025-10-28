@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48">
+  <!-- Fundo branco -->
+  <rect width="64" height="48" fill="#fff"></rect>
+  <!-- Faixas vermelhas -->
+  <g fill="#b22234">
+    <rect y="0" width="64" height="4"></rect>
+    <rect y="8" width="64" height="4"></rect>
+    <rect y="16" width="64" height="4"></rect>
+    <rect y="24" width="64" height="4"></rect>
+    <rect y="32" width="64" height="4"></rect>
+    <rect y="40" width="64" height="4"></rect>
+  </g>
+  <!-- Cantão azul -->
+  <rect width="28" height="20" fill="#3c3b6e"></rect>
+</svg>
