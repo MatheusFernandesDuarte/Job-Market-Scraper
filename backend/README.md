@@ -1,4 +1,4 @@
-# 🧠 Job Market Scraper
+# 🧠 Job Market Scraper - Backend
 
 **Job Market Scraper** is a focused, production-oriented MVP that automates the discovery of international job postings by composing targeted Google search queries and retrieving results via the **Google Custom Search (CSE) API**.
 
@@ -13,19 +13,19 @@ The application is written in Python 3.11, uses modular services, and can be run
 ## 🏗️ Architecture and Modules
 
 * **Core Layer (`src/core`)** : Implements domain logic including:
-    * **Query Builder:** Constructs combinatorial, parametric queries based on role, location, and seniority using Python's itertools and builder pattern.
-    * **Filters and Validators:** Modular job filtering (e.g., time-based filtering) and validation logic to normalize and curate scraped data.
-    * **Use Cases:** Orchestrates the job search and enrichment process, harnessing API calls and scraping results.
+  * **Query Builder:** Constructs combinatorial, parametric queries based on role, location, and seniority using Python's itertools and builder pattern.
+  * **Filters and Validators:** Modular job filtering (e.g., time-based filtering) and validation logic to normalize and curate scraped data.
+  * **Use Cases:** Orchestrates the job search and enrichment process, harnessing API calls and scraping results.
 * **CLI Interface (`src/interface/cli`)** :
-    * **Argument Parsing (`args.py`):** Built on argparse with typed namespace, validating multi-valued CLI inputs for granular control over search parameters.
-    * **UI Module (`ui.py`, `styler.py`, `colorama_formatter.py`):** Returns ANSI-styled formatted strings improving testability and enabling downstream consumption for CLI or frontend display.
-    * **Main CLI Runner (`cli.py`):** Async entrypoint managing full lifecycle including argument parsing, query construction, network I/O with Playwright and Google Services, logging, and graceful error handling.
+  * **Argument Parsing (`args.py`):** Built on argparse with typed namespace, validating multi-valued CLI inputs for granular control over search parameters.
+  * **UI Module (`ui.py`, `styler.py`, `colorama_formatter.py`):** Returns ANSI-styled formatted strings improving testability and enabling downstream consumption for CLI or frontend display.
+  * **Main CLI Runner (`cli.py`):** Async entrypoint managing full lifecycle including argument parsing, query construction, network I/O with Playwright and Google Services, logging, and graceful error handling.
 * **Models (`src/models`)** :
 * Uses Pydantic-like or dataclass models (`job_model.py`) for strong typing and easy interchange of job posting details through the pipeline.
 * **Services Layer (`src/services`)** :
-    * **Google Jobs API Adapter (`service.py` and `client.py`):** Async HTTP client with request formation, paging, retry mechanism, and response mapping to internal models.
-    * **Playwright-based Scraper (`playwright_scraper.py`):** Handles JavaScript-heavy pages using headless browser automation, with concurrency, navigation, and error resilience.
-    * **Mapper (`mapper.py`):** Normalizes external data schemas into standardized job posting objects, isolating variability of data sources.
+  * **Google Jobs API Adapter (`service.py` and `client.py`):** Async HTTP client with request formation, paging, retry mechanism, and response mapping to internal models.
+  * **Playwright-based Scraper (`playwright_scraper.py`):** Handles JavaScript-heavy pages using headless browser automation, with concurrency, navigation, and error resilience.
+  * **Mapper (`mapper.py`):** Normalizes external data schemas into standardized job posting objects, isolating variability of data sources.
 
 ---
 
@@ -72,7 +72,6 @@ flowchart TD
 - **Runtime dependencies:** Defined in pyproject.toml; recommended to install using uv task runner or pip.
 - **Docker:** Optionally, you can build and run the project inside a Docker container.
 
-
 2. **Clone the repository:**
 
 ```bash
@@ -81,16 +80,19 @@ cd job-market-scraper
 ```
 
 3. **Initialize the project with ``uv``:**
+
 ```bash
 uv init
 ```
 
 4. **Create and activate a virtual environment:**
+
 ```bash
 uv venv
 ```
 
 4. **Install dependencies:**
+
 ```python
 uv sync
 ```

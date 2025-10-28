@@ -93,3 +93,11 @@ Language preference is stored locally and managed globally through the ``Languag
 -- **Declarative components:** minimal state management inside UI components.
 -- **Type safety:** every layer (API, UI, utils) uses strict TypeScript interfaces.
 -- **Scalability:** designed for feature extension and easy backend integration.
+
+---
+
+### 🧑‍💻 Author & contact
+
+Matheus — Software Engineer
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/matthfeeer)
