@@ -14,7 +14,7 @@ type Props = {
     loading: boolean;
     error: string | null;
     handleSubmit: (e: React.FormEvent) => void;
-    lang: "pt" | "en";
+    lang: "pt" | "en" | "es";
 };
 
 export function ProfileForm({
