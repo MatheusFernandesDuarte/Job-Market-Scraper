@@ -11,32 +11,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository code
+      - name: 🧾 Check out repository code
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
+      - name: 🐍 Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install uv
+      - name: 🧰 Install uv
         run: pip install uv
 
-      - name: Cache uv environment
+      - name: 💾 Cache uv environment
         uses: actions/cache@v4
         with:
-          path: .venv
-          key: ${{ runner.os }}-uv-${{ hashFiles('**/uv.lock') }}
+          path: backend/.venv
+          key: ${{ runner.os }}-uv-${{ hashFiles('backend/uv.lock') }}
           restore-keys: |
             ${{ runner.os }}-uv-
 
-      - name: Install dependencies
-        run: uv sync
+      - name: 📦 Install dependencies
+        working-directory: backend
+        run: uv sync --frozen
 
-      - name: Run tests with pytest
+      - name: 🧪 Run tests with pytest
+        working-directory: backend
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           GOOGLE_CX: ${{ secrets.GOOGLE_CX }}
         run: |
           source .venv/bin/activate
-          pytest
+          pytest -v
