@@ -4,7 +4,7 @@ import { SkillSummary } from "./SkillSummary";
 import { Job } from "@/types/Job";
 import { pct } from "@/utils/pct";
 import { useLanguage } from "@/context/LanguageContext";
-import { translations } from "@/locales/translations";
+import { translations } from "@/locales";
 
 type Props = {
     results: Job[];
