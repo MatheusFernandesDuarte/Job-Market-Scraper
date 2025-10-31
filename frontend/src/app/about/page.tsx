@@ -77,7 +77,7 @@ export default function AboutPage() {
                                 </div>
                                 <p className="text-slate-600 mb-4">{section.description}</p>
                                 <ul className="space-y-2">
-                                    {section.details.map((detail: string, detailIdx: string) => (
+                                    {section.details.map((detail: string, detailIdx: number) => (
                                         <li
                                             key={detailIdx}
                                             className="flex items-start gap-2 text-sm text-slate-600"
