@@ -1,4 +1,4 @@
-# backend/src/core/logging_config.py
+# backend/src/core/config/logging_config.py
 
 import logging
 import sys
@@ -23,4 +23,3 @@ def setup_logging() -> None:
     logging.getLogger("readability.readability").setLevel(logging.WARNING)
 
     logging.basicConfig(level=logging.INFO, handlers=[handler])
-

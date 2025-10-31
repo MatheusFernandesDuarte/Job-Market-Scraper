@@ -1,4 +1,4 @@
-# backend/tests/filters/test_query_expander.py
+# backend/tests/core/filters/test_query_expander.py
 
 import pytest
 
@@ -33,4 +33,3 @@ def test_query_expander(input_queries: list[str], expected_expansion: set[str]) 
 
     # Assert
     assert set(actual_expansion) == expected_expansion
-

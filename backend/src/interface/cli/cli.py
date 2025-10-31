@@ -6,8 +6,8 @@ import sys
 from argparse import Namespace
 
 from backend.src.core.builders.query_builder import build_query
+from backend.src.core.config.logging_config import setup_logging
 from backend.src.core.contracts.job_search_interface import JobSearchInterface
-from backend.src.core.logging_config import setup_logging
 from backend.src.core.use_cases.job_search_and_enrich_use_case import JobSearchAndEnrichUseCase
 from backend.src.interface.cli import args as cli_args
 from backend.src.interface.cli import ui as cli_ui
@@ -66,4 +66,3 @@ async def main(argv: list[str] | None = None) -> int:
 
     logger.info(cli_ui.display_results(results=results))
     return 0
-

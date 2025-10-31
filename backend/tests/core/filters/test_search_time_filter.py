@@ -1,4 +1,4 @@
-# backend/tests/filters/test_search_time_filter.py
+# backend/tests/core/filters/test_search_time_filter.py
 
 """
 Unit tests for the search_time_filter module.
@@ -56,4 +56,3 @@ def test_build_time_filter(days_input: int | None, expected_result: str | None) 
 
     # ASSERT
     assert result == expected_result, f"For days={days_input}, expected {expected_result!r} but got {result!r}"
-
