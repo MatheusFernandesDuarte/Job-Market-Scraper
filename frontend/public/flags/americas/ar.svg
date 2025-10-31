@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" role="img" aria-label="Bandeira da Argentina">
+    <!-- faixas: celeste - branco - celeste -->
+    <rect width="900" height="200" y="0" fill="#74ACDF"/>
+    <rect width="900" height="200" y="200" fill="#FFFFFF"/>
+    <rect width="900" height="200" y="400" fill="#74ACDF"/>
+    <!-- Sol de Maio estilizado no centro -->
+    <g transform="translate(450,300)">
+        <circle r="46" fill="#F6C915" stroke="#C88E0A" stroke-width="2"/>
+        <!-- raios (alternando longos e curtos) -->
+        <g>
+            <!-- 16 raios -->
+            <g>
+                <g transform="rotate(0)">
+                    <rect x="-6" y="-120" width="12" height="50" rx="6" ry="6"/>
+                </g>
+                <g transform="rotate(22.5)">
+                    <rect x="-4" y="-110" width="8" height="38" rx="4" ry="4"/>
+                </g>
+                <g transform="rotate(45)">
+                    <rect x="-6" y="-120" width="12" height="50" rx="6" ry="6"/>
+                </g>
+                <g transform="rotate(67.5)">
+                    <rect x="-4" y="-110" width="8" height="38" rx="4" ry="4"/>
+                </g>
+                <g transform="rotate(90)">
+                    <rect x="-6" y="-120" width="12" height="50" rx="6" ry="6"/>
+                </g>
+                <g transform="rotate(112.5)">
+                    <rect x="-4" y="-110" width="8" height="38" rx="4" ry="4"/>
+                </g>
+                <g transform="rotate(135)">
+                    <rect x="-6" y="-120" width="12" height="50" rx="6" ry="6"/>
+                </g>
+                <g transform="rotate(157.5)">
+                    <rect x="-4" y="-110" width="8" height="38" rx="4" ry="4"/>
+                </g>
+                <g transform="rotate(180)">
+                    <rect x="-6" y="-120" width="12" height="50" rx="6" ry="6"/>
+                </g>
+                <g transform="rotate(202.5)">
+                    <rect x="-4" y="-110" width="8" height="38" rx="4" ry="4"/>
+                </g>
+                <g transform="rotate(225)">
+                    <rect x="-6" y="-120" width="12" height="50" rx="6" ry="6"/>
+                </g>
+                <g transform="rotate(247.5)">
+                    <rect x="-4" y="-110" width="8" height="38" rx="4" ry="4"/>
+                </g>
+                <g transform="rotate(270)">
+                    <rect x="-6" y="-120" width="12" height="50" rx="6" ry="6"/>
+                </g>
+                <g transform="rotate(292.5)">
+                    <rect x="-4" y="-110" width="8" height="38" rx="4" ry="4"/>
+                </g>
+                <g transform="rotate(315)">
+                    <rect x="-6" y="-120" width="12" height="50" rx="6" ry="6"/>
+                </g>
+                <g transform="rotate(337.5)">
+                    <rect x="-4" y="-110" width="8" height="38" rx="4" ry="4"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

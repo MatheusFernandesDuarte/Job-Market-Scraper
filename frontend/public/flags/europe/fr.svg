@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 3 2" role="img" aria-labelledby="title desc">
+    <title id="title">Bandeira da França</title>
+    <desc id="desc">Três faixas verticais iguais: azul, branco e vermelho.</desc>
+
+    <!-- Faixa azul -->
+    <rect x="0" y="0" width="1" height="2" fill="#0055A4"/>
+    <!-- Faixa branca -->
+    <rect x="1" y="0" width="1" height="2" fill="#FFFFFF"/>
+    <!-- Faixa vermelha -->
+    <rect x="2" y="0" width="1" height="2" fill="#EF4135"/>
+</svg>
