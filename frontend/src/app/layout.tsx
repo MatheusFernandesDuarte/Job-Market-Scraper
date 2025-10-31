@@ -11,9 +11,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Job Market Scraper",
   description: "Encontre vagas internacionais com base no seu perfil",
-  icons: {
-    icon: "/app_icon.svg",
-  },
 };
 
 export default function RootLayout({
