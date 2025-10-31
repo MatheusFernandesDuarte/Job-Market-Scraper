@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+    <rect width="900" height="600" fill="#fff"/>
+    <rect width="900" height="600" fill="none" stroke="#999" stroke-width="8"/>
+    <circle cx="450" cy="300" r="100" fill="#C60C30"/>
+    <path d="M 450 200 A 100 100 0 0 1 450 400 L 450 300 Z" fill="#0047A0"/>
+    <rect x="250" y="150" width="60" height="15" fill="#000"/>
+    <rect x="250" y="180" width="60" height="15" fill="#000"/>
+    <rect x="250" y="210" width="60" height="15" fill="#000"/>
+    <rect x="590" y="150" width="20" height="15" fill="#000"/>
+    <rect x="620" y="150" width="20" height="15" fill="#000"/>
+    <rect x="650" y="150" width="20" height="15" fill="#000"/>
+    <rect x="590" y="180" width="80" height="15" fill="#000"/>
+    <rect x="590" y="210" width="20" height="15" fill="#000"/>
+    <rect x="620" y="210" width="20" height="15" fill="#000"/>
+    <rect x="650" y="210" width="20" height="15" fill="#000"/>
+    <rect x="250" y="375" width="20" height="15" fill="#000"/>
+    <rect x="280" y="375" width="20" height="15" fill="#000"/>
+    <rect x="310" y="375" width="20" height="15" fill="#000"/>
+    <rect x="250" y="405" width="80" height="15" fill="#000"/>
+    <rect x="250" y="435" width="20" height="15" fill="#000"/>
+    <rect x="280" y="435" width="20" height="15" fill="#000"/>
+    <rect x="310" y="435" width="20" height="15" fill="#000"/>
+    <rect x="590" y="375" width="80" height="15" fill="#000"/>
+    <rect x="590" y="405" width="20" height="15" fill="#000"/>
+    <rect x="620" y="405" width="20" height="15" fill="#000"/>
+    <rect x="650" y="405" width="20" height="15" fill="#000"/>
+    <rect x="590" y="435" width="80" height="15" fill="#000"/>
+</svg>

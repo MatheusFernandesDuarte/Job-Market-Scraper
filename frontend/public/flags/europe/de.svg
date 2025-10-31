@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 3 2" role="img" aria-labelledby="title desc">
+    <title id="title">Bandeira da Alemanha</title>
+    <desc id="desc">Três faixas horizontais iguais: preta, vermelha e amarela.</desc>
+
+    <!-- Faixa preta -->
+    <rect x="0" y="0" width="3" height="0.6667" fill="#000000"/>
+    <!-- Faixa vermelha -->
+    <rect x="0" y="0.6667" width="3" height="0.6667" fill="#DD0000"/>
+    <!-- Faixa amarela -->
+    <rect x="0" y="1.3333" width="3" height="0.6667" fill="#FFCE00"/>
+</svg>

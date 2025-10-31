@@ -1,10 +1,13 @@
 "use client";
 
 import React from "react";
-import { TooltipHelpIcon } from "@/components/TooltipHelpIcon";
-import { translations } from "@/locales/translations";
+import { TooltipHelpIcon } from "@/components/ui/TooltipHelpIcon";
+import { translations } from "@/locales";
+import { Language } from "@/config/languages";
+import { Alert } from "@/components/ui/Alert";
 
-type Props = {
+
+type ProfileFormProps = {
     techStack: string;
     setTechStack: (v: string) => void;
     location: string;
@@ -14,10 +17,11 @@ type Props = {
     loading: boolean;
     error: string | null;
     handleSubmit: (e: React.FormEvent) => void;
-    lang: "pt" | "en" | "es";
+    lang: Language;
 };
 
 export function ProfileForm({
+    lang,
     techStack,
     setTechStack,
     location,
@@ -27,8 +31,7 @@ export function ProfileForm({
     loading,
     error,
     handleSubmit,
-    lang,
-}: Props) {
+}: ProfileFormProps) {
     const t = translations[lang];
 
     return (
@@ -81,13 +84,20 @@ export function ProfileForm({
             {/* Submit */}
             <button
                 type="submit"
-                className="w-full inline-flex justify-center items-center rounded-xl bg-sky-600 px-4 py-2 text-white font-semibold shadow hover:bg-sky-700 transition"
                 disabled={loading}
+                className="w-full py-3 px-4 bg-sky-600 text-white font-medium rounded-lg hover:bg-sky-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-colors"
             >
                 {loading ? t.loading : t.button}
             </button>
 
-            {error && <p className="text-sm text-red-600">{error}</p>}
+            {error && (
+                <Alert
+                    type="error"
+                    title={t.errorTitle}
+                    message={t.errorAtLeastOne}
+                />
+            )}
+
         </form>
     );
 }

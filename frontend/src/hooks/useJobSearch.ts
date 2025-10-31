@@ -1,7 +1,6 @@
-import { useState, useReducer, useCallback } from "react";
+import { useReducer, useCallback } from "react";
 import { Job } from "@/types/Job";
 
-/** Helper — transforma "React, Node" → ["react", "node"] */
 function parseCSV(value: string): string[] {
     return value
         .split(",")
@@ -23,7 +22,8 @@ type Action =
     | { type: "SET_FIELD"; field: keyof State; value: string }
     | { type: "SET_RESULTS"; results: Job[] }
     | { type: "SET_ERROR"; error: string | null }
-    | { type: "SET_LOADING"; loading: boolean };
+    | { type: "SET_LOADING"; loading: boolean }
+    | { type: "CLEAR_RESULTS" };
 
 function reducer(state: State, action: Action): State {
     switch (action.type) {
@@ -35,6 +35,8 @@ function reducer(state: State, action: Action): State {
             return { ...state, error: action.error };
         case "SET_LOADING":
             return { ...state, loading: action.loading };
+        case "CLEAR_RESULTS":
+            return { ...state, results: [], error: null };
         default:
             return state;
     }
@@ -99,11 +101,16 @@ export function useJobSearch() {
         [state.techStack, state.location, state.seniority]
     );
 
+    const clearResults = useCallback(() => {
+        dispatch({ type: "CLEAR_RESULTS" });
+    }, []);
+
     return {
         ...state,
         setTechStack: (v: string) => setField("techStack", v),
         setLocation: (v: string) => setField("location", v),
         setSeniority: (v: string) => setField("seniority", v),
         handleSubmit,
+        clearResults,
     };
 }

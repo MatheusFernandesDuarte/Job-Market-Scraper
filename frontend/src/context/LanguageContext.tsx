@@ -7,8 +7,7 @@ import React, {
     useEffect,
     ReactNode,
 } from "react";
-
-type Language = "pt" | "en" | "es";
+import { Language, LANGUAGE_CODES, DEFAULT_LANGUAGE } from "@/config/languages";
 
 type LanguageContextType = {
     lang: Language;
@@ -20,16 +19,22 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 );
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-    const [lang, setLang] = useState<Language>(() => {
-        if (typeof window !== "undefined") {
-            return (localStorage.getItem("lang") as Language) || "pt";
-        }
-        return "pt";
-    });
+    const [lang, setLang] = useState<Language>(DEFAULT_LANGUAGE);
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        localStorage.setItem("lang", lang);
-    }, [lang]);
+        setMounted(true);
+        const saved = localStorage.getItem("lang") as Language;
+        if (saved && LANGUAGE_CODES.includes(saved)) {
+            setLang(saved);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (mounted) {
+            localStorage.setItem("lang", lang);
+        }
+    }, [lang, mounted]);
 
     return (
         <LanguageContext.Provider value={{ lang, setLang }}>

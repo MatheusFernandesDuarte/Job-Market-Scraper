@@ -1,6 +1,6 @@
 import { Job } from "@/types/Job";
 import { useLanguage } from "@/context/LanguageContext";
-import { translations } from "@/locales/translations";
+import { translations } from "@/locales";
 
 type Props = {
     job: Job;
