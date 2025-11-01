@@ -3,10 +3,16 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../styles/globals.css";
+import { Poppins } from "next/font/google";
+
 
 import { LanguageProvider } from "@/context/LanguageContext";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+});
 
 export const metadata: Metadata = {
   title: "Job Market Scraper",
@@ -20,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <LanguageProvider>
           {children}
         </LanguageProvider>

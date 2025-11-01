@@ -116,11 +116,7 @@ export function LanguageSelector() {
                     {/* Scrollable list */}
                     <ul
                         role="listbox"
-                        className="max-h-96 overflow-y-auto overscroll-contain"
-                        style={{
-                            scrollbarWidth: "thin",
-                            scrollbarColor: "#cbd5e1 #f1f5f9",
-                        }}
+                        className="language-selector-list max-h-96 overflow-y-auto overscroll-contain"
                     >
                         {Object.entries(filteredLanguages).map(([continent, codes]) => (
                             <li key={continent}>
@@ -168,23 +164,6 @@ export function LanguageSelector() {
                     </ul>
                 </div>
             )}
-
-            <style jsx>{`
-                /* Custom scrollbar for webkit browsers */
-                ul::-webkit-scrollbar {
-                    width: 8px;
-                }
-                ul::-webkit-scrollbar-track {
-                    background: #f1f5f9;
-                }
-                ul::-webkit-scrollbar-thumb {
-                    background: #cbd5e1;
-                    border-radius: 4px;
-                }
-                ul::-webkit-scrollbar-thumb:hover {
-                    background: #94a3b8;
-                }
-            `}</style>
         </div>
     );
 }
