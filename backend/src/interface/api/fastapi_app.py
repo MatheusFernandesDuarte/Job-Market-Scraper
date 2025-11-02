@@ -8,12 +8,12 @@ import sys
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.src.core.builders.query_builder import build_query
-from backend.src.core.contracts.job_search_interface import JobSearchInterface
-from backend.src.core.use_cases.job_search_and_enrich_use_case import JobSearchAndEnrichUseCase
-from backend.src.interface.api.schemas import JobResponse, MatchRequest
-from backend.src.services.google.service import GoogleService
-from backend.src.services.scraping.playwright_scraper import PlaywrightScraper
+from src.core.builders.query_builder import build_query
+from src.core.contracts.job_search_interface import JobSearchInterface
+from src.core.use_cases.job_search_and_enrich_use_case import JobSearchAndEnrichUseCase
+from src.interface.api.schemas import JobResponse, MatchRequest
+from src.services.google.service import GoogleService
+from src.services.scraping.playwright_scraper import PlaywrightScraper
 
 logger = logging.getLogger(__name__)
 

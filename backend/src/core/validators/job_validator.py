@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 from typing import ClassVar
 
-from backend.src.models.job_model import JobPosting
+from src.models.job_model import JobPosting
 
 logger = logging.getLogger(__name__)
 
@@ -77,4 +77,3 @@ class JobValidator:
 
         logger.info(f"VALID job found: {job.title}")
         return True
-

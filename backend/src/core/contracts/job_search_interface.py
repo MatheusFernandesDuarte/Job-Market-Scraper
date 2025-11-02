@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 
-from backend.src.models.job_model import JobPosting
+from src.models.job_model import JobPosting
 
 
 class JobSearchInterface(ABC):
@@ -28,4 +28,3 @@ class JobSearchInterface(ABC):
                               instances.
         """
         raise NotImplementedError
-

@@ -2,7 +2,7 @@
 
 import tldextract
 
-from backend.src.models.job_model import JobPosting
+from src.models.job_model import JobPosting
 
 NON_TECH_ROLE_KEYWORDS: set[str] = {
     "administrativo",

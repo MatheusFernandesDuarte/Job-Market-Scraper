@@ -4,13 +4,13 @@ import logging
 
 import requests
 
-from backend.src.core.contracts.job_search_interface import JobSearchInterface
-from backend.src.core.filters.initial_job_filter import InitialJobFilter
-from backend.src.core.filters.query_expander import QueryExpander
-from backend.src.core.filters.search_time_filter import build_time_filter
-from backend.src.models.job_model import JobPosting
-from backend.src.services.google.client import GoogleCseClient
-from backend.src.services.google.mapper import from_google_cse_item
+from src.core.contracts.job_search_interface import JobSearchInterface
+from src.core.filters.initial_job_filter import InitialJobFilter
+from src.core.filters.query_expander import QueryExpander
+from src.core.filters.search_time_filter import build_time_filter
+from src.models.job_model import JobPosting
+from src.services.google.client import GoogleCseClient
+from src.services.google.mapper import from_google_cse_item
 
 logger = logging.getLogger(__name__)
 
@@ -73,4 +73,3 @@ class GoogleService(JobSearchInterface):
 
         final_results: list[JobPosting] = list(all_candidates.values())
         return final_results[:max_results]
-

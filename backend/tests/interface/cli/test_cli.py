@@ -4,7 +4,7 @@ from unittest.mock import ANY, AsyncMock, MagicMock
 
 import pytest
 
-from backend.src.interface.cli import cli
+from src.interface.cli import cli
 
 pytestmark = pytest.mark.asyncio
 
@@ -75,4 +75,3 @@ async def test_main_handles_exception(mock_use_case: MagicMock, mock_ui: MagicMo
 
     mock_ui.display_error.assert_called_once_with(message=ANY)
     assert exit_code == 2
-

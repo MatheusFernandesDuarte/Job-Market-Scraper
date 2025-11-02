@@ -8,8 +8,8 @@ ensuring that the core application logic remains decoupled from the
 console output.
 """
 
-from backend.src.interface.cli.styler import Styler
-from backend.src.models.job_model import JobPosting
+from src.interface.cli.styler import Styler
+from src.models.job_model import JobPosting
 
 
 def display_search_header(queries: list[str]) -> str:
@@ -71,4 +71,3 @@ def display_error(message: str) -> str:
         str: The formatted error message.
     """
     return Styler.error(text=f"[error] {message}")
-

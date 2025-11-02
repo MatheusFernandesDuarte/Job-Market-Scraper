@@ -4,8 +4,8 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
-from backend.src.core.use_cases.job_search_and_enrich_use_case import JobSearchAndEnrichUseCase
-from backend.src.models.job_model import JobPosting
+from src.core.use_cases.job_search_and_enrich_use_case import JobSearchAndEnrichUseCase
+from src.models.job_model import JobPosting
 
 pytestmark = pytest.mark.asyncio
 
@@ -72,4 +72,3 @@ async def test_execute_pipeline(
 
     # 5. The final list has the desired size
     assert len(final_jobs) == 5
-

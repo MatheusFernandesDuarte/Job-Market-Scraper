@@ -5,15 +5,15 @@ import logging
 import sys
 from argparse import Namespace
 
-from backend.src.core.builders.query_builder import build_query
-from backend.src.core.config.logging_config import setup_logging
-from backend.src.core.contracts.job_search_interface import JobSearchInterface
-from backend.src.core.use_cases.job_search_and_enrich_use_case import JobSearchAndEnrichUseCase
-from backend.src.interface.cli import args as cli_args
-from backend.src.interface.cli import ui as cli_ui
-from backend.src.models.job_model import JobPosting
-from backend.src.services.google.service import GoogleService
-from backend.src.services.scraping.playwright_scraper import PlaywrightScraper
+from src.core.builders.query_builder import build_query
+from src.core.config.logging_config import setup_logging
+from src.core.contracts.job_search_interface import JobSearchInterface
+from src.core.use_cases.job_search_and_enrich_use_case import JobSearchAndEnrichUseCase
+from src.interface.cli import args as cli_args
+from src.interface.cli import ui as cli_ui
+from src.models.job_model import JobPosting
+from src.services.google.service import GoogleService
+from src.services.scraping.playwright_scraper import PlaywrightScraper
 
 logger = logging.getLogger(__name__)
 

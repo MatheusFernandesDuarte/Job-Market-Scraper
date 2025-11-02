@@ -7,7 +7,7 @@ combinations of command-line flags and applies default values as expected.
 
 from argparse import Namespace
 
-from backend.src.interface.cli.args import parse_args
+from src.interface.cli.args import parse_args
 
 
 def test_parse_args_with_all_arguments() -> None:
@@ -75,4 +75,3 @@ def test_parse_args_with_partial_arguments() -> None:
     assert parsed_args.seniority == [""]  # Should fall back to default
     assert parsed_args.role == ["Data Science"]
     assert parsed_args.max == 5
-

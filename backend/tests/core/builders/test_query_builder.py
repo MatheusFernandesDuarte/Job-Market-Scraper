@@ -8,7 +8,7 @@ conditions, including handling of empty, None, and whitespace-padded inputs.
 
 import pytest
 
-from backend.src.core.builders.query_builder import build_query
+from src.core.builders.query_builder import build_query
 
 # A list of test cases covering various scenarios
 # Each tuple contains: (location, seniority, role, expected_output)
@@ -77,4 +77,3 @@ def test_build_query_returns_none_for_all_whitespace_terms() -> None:
 
     # ASSERT
     assert result is None
-

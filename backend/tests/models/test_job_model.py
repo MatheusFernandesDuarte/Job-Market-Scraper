@@ -6,7 +6,7 @@ with both required and optional attributes, and that its default values
 are set as expected.
 """
 
-from backend.src.models.job_model import JobPosting
+from src.models.job_model import JobPosting
 
 
 def test_job_posting_instantiation_with_all_fields() -> None:
@@ -85,4 +85,3 @@ def test_job_posting_score_is_not_in_repr() -> None:
     # ASSERT
     assert "score=10" not in representation
     assert "title='Manager'" in representation  # Confirm other fields are present
-

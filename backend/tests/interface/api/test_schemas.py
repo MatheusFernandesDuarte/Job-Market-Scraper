@@ -3,7 +3,7 @@
 import pytest
 from pydantic import ValidationError
 
-from backend.src.interface.api.schemas import JobResponse, MatchRequest
+from src.interface.api.schemas import JobResponse, MatchRequest
 
 
 def test_match_request_valid():

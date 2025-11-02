@@ -1,3 +1,5 @@
+# backend/run_api.py
+
 import asyncio
 import sys
 
@@ -12,7 +14,7 @@ if sys.platform == "win32":
 
 if __name__ == "__main__":
     uvicorn.run(
-        app="backend.src.interface.api.fastapi_app:app",
+        app="src.interface.api.fastapi_app:app",
         host="0.0.0.0",
         port=8000,
         reload=False,

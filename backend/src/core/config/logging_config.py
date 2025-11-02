@@ -5,7 +5,7 @@ import sys
 
 from colorama import init
 
-from backend.src.interface.cli.colorama_formatter import ColoramaFormatter
+from src.interface.cli.colorama_formatter import ColoramaFormatter
 
 
 def setup_logging() -> None:

@@ -3,8 +3,8 @@
 import pytest
 import tldextract
 
-from backend.src.core.filters.initial_job_filter import InitialJobFilter
-from backend.src.models.job_model import JobPosting
+from src.core.filters.initial_job_filter import InitialJobFilter
+from src.models.job_model import JobPosting
 
 
 @pytest.mark.parametrize(

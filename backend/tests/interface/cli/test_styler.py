@@ -8,7 +8,7 @@ applies the expected colorama ANSI escape codes to the input text.
 import pytest
 from colorama import Fore, Style
 
-from backend.src.interface.cli.styler import Styler
+from src.interface.cli.styler import Styler
 
 # ==============================================================================
 # Test Cases
@@ -57,4 +57,3 @@ def test_styler_methods(
 
     if extra_style_code:
         assert extra_style_code in styled_text
-

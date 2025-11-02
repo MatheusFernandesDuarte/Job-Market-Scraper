@@ -12,7 +12,7 @@ import pytest
 import requests
 from pytest_mock import MockerFixture
 
-from backend.src.services.google.client import GoogleCseClient
+from src.services.google.client import GoogleCseClient
 
 # ==============================================================================
 # Fixtures
@@ -185,4 +185,3 @@ def test_search_no_items_found(mocker: MockerFixture, mock_env_vars: None) -> No
 
     # ASSERT
     assert results == []
-

@@ -4,11 +4,11 @@ import asyncio
 import logging
 from typing import ClassVar
 
-from backend.src.core.contracts.job_search_interface import JobSearchInterface
-from backend.src.core.contracts.page_scraper_interface import PageScraperInterface
-from backend.src.core.filters.initial_job_filter import InitialJobFilter
-from backend.src.core.validators.job_validator import JobValidator
-from backend.src.models.job_model import JobPosting
+from src.core.contracts.job_search_interface import JobSearchInterface
+from src.core.contracts.page_scraper_interface import PageScraperInterface
+from src.core.filters.initial_job_filter import InitialJobFilter
+from src.core.validators.job_validator import JobValidator
+from src.models.job_model import JobPosting
 
 logger = logging.getLogger(__name__)
 
@@ -94,4 +94,3 @@ class JobSearchAndEnrichUseCase:
             logger.info(f"Found {len(newly_validated)} valid jobs in this batch. Total valid: {len(validated_jobs)}")
 
         return validated_jobs[:max_results]
-

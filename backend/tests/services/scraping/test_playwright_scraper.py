@@ -5,7 +5,7 @@ from unittest.mock import ANY, AsyncMock, MagicMock
 import pytest
 from playwright.async_api import Error
 
-from backend.src.services.scraping.playwright_scraper import PlaywrightScraper
+from src.services.scraping.playwright_scraper import PlaywrightScraper
 
 pytestmark = pytest.mark.asyncio
 
@@ -79,4 +79,3 @@ async def test_fetch_content_handles_playwright_error(mock_playwright: dict) -> 
 
     assert content == ""
     mock_context.close.assert_awaited_once()
-

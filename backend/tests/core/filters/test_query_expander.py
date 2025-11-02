@@ -2,7 +2,7 @@
 
 import pytest
 
-from backend.src.core.filters.query_expander import QueryExpander
+from src.core.filters.query_expander import QueryExpander
 
 test_cases = [
     (['"python developer"'], {'"python developer"', '"python engineer"', '"python programmer"'}),

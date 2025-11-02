@@ -5,9 +5,9 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from backend.src.core.filters.query_expander import QueryExpander
-from backend.src.models.job_model import JobPosting
-from backend.src.services.google.service import GoogleService
+from src.core.filters.query_expander import QueryExpander
+from src.models.job_model import JobPosting
+from src.services.google.service import GoogleService
 
 
 @pytest.fixture
@@ -109,4 +109,3 @@ def test_search_deduplicates_results(
     assert len(results) == 2
     assert {job.link for job in results} == {"https://link-a.com", "https://link-b.com"}
     assert mock_client.search.call_count == 2
-

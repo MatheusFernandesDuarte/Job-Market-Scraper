@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from backend.src.models.job_model import JobPosting
+from src.models.job_model import JobPosting
 
 
 def from_google_cse_item(item: dict[str, Any]) -> JobPosting:
@@ -27,4 +27,3 @@ def from_google_cse_item(item: dict[str, Any]) -> JobPosting:
         date=item.get("pagemap", {}).get("metatags", [{}])[0].get("article:published_time"),
     )
     return job_posting
-

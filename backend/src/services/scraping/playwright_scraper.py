@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from playwright.async_api import Browser, BrowserContext, Error, Page, Playwright, async_playwright
 from readability import Document
 
-from backend.src.core.contracts.page_scraper_interface import PageScraperInterface
+from src.core.contracts.page_scraper_interface import PageScraperInterface
 
 logger = logging.getLogger(__name__)
 
@@ -94,4 +94,3 @@ class PlaywrightScraper(PageScraperInterface):
         finally:
             if context:
                 await context.close()
-

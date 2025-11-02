@@ -9,7 +9,7 @@ a number of days into the appropriate Google Custom Search 'dateRestrict' parame
 
 import pytest
 
-from backend.src.core.filters.search_time_filter import build_time_filter
+from src.core.filters.search_time_filter import build_time_filter
 
 # Each tuple: (input_days, expected_output)
 time_filter_test_cases = [

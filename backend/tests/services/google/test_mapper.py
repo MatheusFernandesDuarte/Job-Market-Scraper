@@ -9,8 +9,8 @@ from typing import Any
 
 import pytest
 
-from backend.src.models.job_model import JobPosting
-from backend.src.services.google.mapper import from_google_cse_item
+from src.models.job_model import JobPosting
+from src.services.google.mapper import from_google_cse_item
 
 # ==============================================================================
 # Fixtures
@@ -119,4 +119,3 @@ def test_from_google_cse_item_with_empty_dict() -> None:
     assert job_posting.snippet == ""
     assert job_posting.source == ""
     assert job_posting.date is None
-

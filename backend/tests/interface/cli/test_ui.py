@@ -3,8 +3,8 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from backend.src.interface.cli import ui
-from backend.src.models.job_model import JobPosting
+from src.interface.cli import ui
+from src.models.job_model import JobPosting
 
 
 # Mock a Styler class so we don't need the actual styling library for tests
@@ -84,4 +84,3 @@ def test_display_error() -> None:
 
     # Assert
     assert "[ERROR][error] Test error[/ERROR]" in error_str
-
