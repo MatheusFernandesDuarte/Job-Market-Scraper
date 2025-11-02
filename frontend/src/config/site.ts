@@ -3,7 +3,8 @@ export const siteConfig = {
     author: "Matheus Fernandes",
 
     links: {
-        github: "https://github.com/MatheusFernandesDuarte/Job-Market-Scraper",
+        github_repository: "https://github.com/MatheusFernandesDuarte/Job-Market-Scraper",
+        github_profile: "https://github.com/MatheusFernandesDuarte/",
         linkedin: "https://www.linkedin.com/in/matthfeeer",
         whatsapp: "https://wa.me/5548996986616",
     },

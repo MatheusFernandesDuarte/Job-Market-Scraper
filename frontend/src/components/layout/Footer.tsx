@@ -22,7 +22,7 @@ export function Footer() {
                     </p>
                     <div className="flex gap-2 mt-3">
                         <Link
-                            href={siteConfig.links.github}
+                            href={siteConfig.links.github_repository}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1 text-xs text-sky-600 hover:text-sky-700 transition-colors"
@@ -123,7 +123,7 @@ export function Footer() {
                             </div>
                         </Link>
                         <Link
-                            href={siteConfig.links.github}
+                            href={siteConfig.links.github_profile}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="group"

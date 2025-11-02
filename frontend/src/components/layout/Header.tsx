@@ -4,20 +4,12 @@ import { LanguageSelector } from "@/components/ui/LanguageSelector";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations } from "@/locales";
 import { useState, useEffect } from "react";
+import { siteConfig } from "@/config/site";
 import Link from "next/link";
 
 export function Header() {
     const { lang } = useLanguage();
     const t = translations[lang];
-    const [jobCount, setJobCount] = useState(0);
-
-    // Simular contagem de vagas (substitua com API real depois)
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setJobCount(prev => (prev < 1247 ? prev + 23 : 1247));
-        }, 100);
-        return () => clearInterval(interval);
-    }, []);
 
     return (
         <header className="bg-white rounded-2xl shadow-lg border border-slate-200">
@@ -103,7 +95,7 @@ export function Header() {
 
                 {/* GitHub link */}
                 <a
-                    href="https://github.com/seu-usuario/job-market-scraper"
+                    href={siteConfig.links.github_profile}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 hover:bg-white rounded-lg transition-all"
